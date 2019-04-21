@@ -1,0 +1,31 @@
+{
+  "name": "koa-wechat-xml-body",
+  "version": "1.0.0",
+  "description": "koa middleware to parse wechat xml request body",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zss007/koa-wechat-xml-body.git"
+  },
+  "keywords": [
+    "xml",
+    "bodyParser",
+    "wechat",
+    "koa",
+    "xml2js",
+    "xml parser"
+  ],
+  "author": "zss007",
+  "license": "MIT",
+  "dependencies": {
+    "raw-body": "^2.2.0",
+    "xml2js": "^0.4.17"
+  },
+  "bugs": {
+    "url": "https://github.com/zss007/koa-wechat-xml-body/issues"
+  },
+  "homepage": "https://github.com/zss007/koa-wechat-xml-body#readme"
+}
