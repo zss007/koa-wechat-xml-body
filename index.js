@@ -1,18 +1,18 @@
 'use strict'
 
-const parse = require('./xml-parser')
+const parse = require('./lib/xml-parser')
 
-module.exports = function koaXmlBody(options) {
+module.exports = options => {
     if (typeof options !== 'object') {
         options = {}
     }
     const bodyKey = options.key || 'body'
-    return function plugin(ctx, next) {
+    return async function plugin(ctx, next) {
         /**
          * only parse and set ctx.request[bodyKey] when
          * 1. type is xml (text/xml and application/xml)
          * 2. method is post/put/patch
-         * 3. ctx.request[bodyKey] is undefined
+         * 3. ctx.request[bodyKey] is undefined or {}
          */
         if (
             ctx.is('text/xml', 'xml') &&
@@ -22,19 +22,17 @@ module.exports = function koaXmlBody(options) {
             if (!options.encoding && ctx.request.charset) {
                 options.encoding = ctx.request.charset
             }
-            return parse(ctx.req, options).then(data => {
+            await parse(ctx.req, options).then(data => {
                 ctx.request[bodyKey] = data
-                return next()
             }).catch(err => {
                 if (options.onerror) {
                     options.onerror(err, ctx)
-                }
-                // throw error by default
-                else {
+                } else {
+                    // throw error by default
                     throw err
                 }
             })
         }
-        return next()
+        await next()
     }
 }
